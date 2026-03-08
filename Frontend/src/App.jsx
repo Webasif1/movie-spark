@@ -1,10 +1,13 @@
-import React from 'react'
-import "./app.css"
+import Navbar from "./features/components/Navbar";
+import AppRouter from "./features/router/AppRouter";
 
-const App = () => {
+function App() {
   return (
-    <div className=''>App</div>
-  )
+    <div className="bg-black min-h-screen text-white">
+      <Navbar />
+      <AppRouter />
+    </div>
+  );
 }
 
-export default App
+export default App;
