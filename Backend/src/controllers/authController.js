@@ -1,14 +1,12 @@
-const User = require("../models/userModel");
+const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   const { username, email, password } = req.body;
 
-  if (!username || !email || !password)
-    return res.status(400).json({ message: "All fields are required" });
 
-  const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+  const existingUser = await userModel.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
     return res
       .status(400)
@@ -17,10 +15,13 @@ const register = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = new User({ username, email, password: hashedPassword });
-  await newUser.save();
+const user = await userModel.create({
+    username,
+    email,
+    password: hashedPassword,
+  });
 
-  const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
@@ -30,7 +31,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await userModel.findOne({ email });
 
   if (!user) {
     return res.status(400).json({ message: "Invalid credentials" });
