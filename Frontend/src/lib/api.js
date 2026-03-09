@@ -5,6 +5,7 @@ async function apiFetch(endpoint, options = {}) {
     method: options.method || "GET",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
     },
     credentials: "include",
     ...(options.body ? { body: JSON.stringify(options.body) } : {}),
