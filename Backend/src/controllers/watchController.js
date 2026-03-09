@@ -1,38 +1,63 @@
 const User = require("../models/userModel");
 
-const addWatchHistory = async (req, res) => {
+const addToHistory = async (req, res) => {
   try {
-    const { movieId, title, poster } = req.body;
+    const userId = req.user.id;
 
-    const user = await User.findById(req.user._id);
+    const { tmdbId, title, poster, mediaType } = req.body;
+
+    const user = await User.findById(userId);
 
     const exists = user.watchHistory.find(
-      (movie) => movie.movieId === movieId
+      (item) => item.tmdbId === tmdbId
     );
 
-    if (!exists) {
-      user.watchHistory.unshift({ movieId, title, poster });
-      // Keep only latest 20
-      if (user.watchHistory.length > 20) user.watchHistory.pop();
-      await user.save();
+    if (exists) {
+      exists.watchedAt = new Date();
+    } else {
+      user.watchHistory.unshift({
+        tmdbId,
+        title,
+        poster, // IMPORTANT
+        mediaType,
+        watchedAt: new Date(),
+      });
     }
+
+    await user.save();
 
     res.json(user.watchHistory);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-const getWatchHistory = async (req, res) => {
+const getHistory = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user.id);
+
     res.json(user.watchHistory);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const clearHistory = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    user.watchHistory = [];
+
+    await user.save();
+
+    res.json([]);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 module.exports = {
-  addWatchHistory,
-  getWatchHistory
+  addToHistory,
+  getHistory,
+  clearHistory
 };

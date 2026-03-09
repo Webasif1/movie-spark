@@ -1,12 +1,13 @@
 const express = require("express");
-const authMiddleware = require("../middleware/auth.middleware.js");
+const router = express.Router();
+
 const {
   addFavorite,
   getFavorites,
   removeFavorite
-} = require("../controllers/favoriteController.js");
+} = require("../controllers/favoriteController");
 
-const router = express.Router();
+const authMiddleware = require("../middleware/auth.middleware");
 
 router.post("/", authMiddleware, addFavorite);
 router.get("/", authMiddleware, getFavorites);

@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 40 20% 96%;
+    --foreground: 230 25% 10%;
+
+    --card: 40 15% 92%;
+    --card-foreground: 230 25% 10%;
+
+    --popover: 40 15% 92%;
+    --popover-foreground: 230 25% 10%;
+
+    --primary: 43 85% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 230 10% 88%;
+    --secondary-foreground: 230 15% 30%;
+
+    --muted: 230 10% 90%;
+    --muted-foreground: 230 10% 40%;
+
+    --accent: 43 85% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 230 10% 85%;
+    --input: 230 10% 85%;
+    --ring: 43 85% 45%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 40 15% 94%;
+    --sidebar-foreground: 230 25% 10%;
+    --sidebar-primary: 43 85% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 10% 88%;
+    --sidebar-accent-foreground: 230 25% 10%;
+    --sidebar-border: 230 10% 85%;
+    --sidebar-ring: 43 85% 45%;
+
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(40 20% 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(40 15% 94%) 0%, hsl(40 15% 90%) 100%);
+    --shadow-glow: 0 0 30px hsl(43 85% 45% / 0.2);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.08);
+  }
+
+  .dark {
+    --background: 230 25% 5%;
+    --foreground: 40 20% 95%;
+
+    --card: 230 20% 8%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 230 20% 8%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 43 85% 49%;
+    --primary-foreground: 230 25% 5%;
+
+    --secondary: 230 15% 13%;
+    --secondary-foreground: 40 15% 80%;
+
+    --muted: 230 15% 15%;
+    --muted-foreground: 230 10% 55%;
+
+    --accent: 43 85% 49%;
+    --accent-foreground: 230 25% 5%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 20% 95%;
+
+    --border: 230 15% 18%;
+    --input: 230 15% 18%;
+    --ring: 43 85% 49%;
+
+    --sidebar-background: 230 20% 7%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 43 85% 49%;
+    --sidebar-primary-foreground: 230 25% 5%;
+    --sidebar-accent: 230 15% 13%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 230 15% 18%;
+    --sidebar-ring: 43 85% 49%;
+
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(230 25% 5%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(230 20% 10%) 0%, hsl(230 20% 6%) 100%);
+    --shadow-glow: 0 0 30px hsl(43 85% 49% / 0.15);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300;
+  }
+
+  .glass {
+    backdrop-filter: blur(20px);
+    background: hsl(var(--card) / 0.6);
+  }
+
+  /* Navbar states */
+  .navbar-transparent {
+    background: hsl(var(--background) / 0.5);
+    backdrop-filter: blur(12px);
+  }
+
+  .navbar-scrolled {
+    backdrop-filter: blur(24px) saturate(1.4);
+    background: hsl(var(--background) / 0.75);
+    box-shadow: 0 1px 0 hsl(var(--border) / 0.15), 0 4px 24px hsl(0 0% 0% / 0.12);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
