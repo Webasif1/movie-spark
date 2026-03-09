@@ -7,7 +7,7 @@ const app = express()
 
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: "https://movie-spark-backend.onrender.com",
     credentials: true
   })
 );
