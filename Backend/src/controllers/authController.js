@@ -57,7 +57,7 @@ const login = async (req, res) => {
   });
   console.log("Generated JWT Token:", token); // Debugging log
   res.cookie("token", token, {
-    httpOnly: true,
+    httpsOnly: true,
     secure: true,
     sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
